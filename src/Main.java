@@ -30,9 +30,9 @@ public class Main extends Application {
         spinningLinesGroup = new Group();
         spinningLines = new ArrayList<>();
 
-        spinningLines.add(new SpinningLine(0.01, 20));
-        //spinningLines.add(new SpinningLine(3, 0));
-        //spinningLines.add(new SpinningLine(5, 0));
+        spinningLines.add(new SpinningLine(0, 100));
+        spinningLines.add(new SpinningLine(0.5, 75));
+        spinningLines.add(new SpinningLine(0.5, 50));
 
         root.getChildren().add(spinningLinesGroup);
         for (SpinningLine line : spinningLines) {

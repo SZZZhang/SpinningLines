@@ -42,13 +42,13 @@ public class SpinningLine {
             double interval = 0;
             @Override
             public void handle(long now) {
-                endX = cos(length, F, interval) + startX;
-                endY = sin(length, F, interval) + startY;
+                endX = cos(length, frequency, interval) + startX;
+                endY = sin(length, frequency, interval) + startY;
 
                 line.setStartX(startX);
                 line.setStartY(startY);
                 line.setEndX(endX);
-                line.setEndX(endY);
+                line.setEndY(endY);
 
                 interval += DELTA_T;
             }
