@@ -16,10 +16,9 @@ public class Main extends Application {
     int WINDOW_HEIGHT = 800;
 
 
-
-    ArrayList<Line> spinningLines;
-    Group linesGroup;
     AnimationTimer timer;
+    ArrayList<SpinningLine> spinningLines;
+    Group spinningLinesGroup;
 
     @Override
     public void start(Stage primaryStage) throws Exception{
@@ -28,26 +27,37 @@ public class Main extends Application {
         Line axisY = new Line(WINDOW_WIDTH/2, 0, WINDOW_WIDTH/2, WINDOW_HEIGHT);
         root.getChildren().addAll(axisX, axisY);
 
-        linesGroup = new Group();
+        spinningLinesGroup = new Group();
         spinningLines = new ArrayList<>();
 
-        timer = new AnimationTimer() {
-            @Override
-            public void handle(long now) {
+        spinningLines.add(new SpinningLine(0.01, 20));
+        //spinningLines.add(new SpinningLine(3, 0));
+        //spinningLines.add(new SpinningLine(5, 0));
 
-            }
-        }
-
-
+        root.getChildren().add(spinningLinesGroup);
         for (SpinningLine line : spinningLines) {
             spinningLinesGroup.getChildren().add(line.getLineGroup());
             line.startTimer();
         }
 
+        spinningLines.get(0).setStartX(WINDOW_WIDTH/2);
+        spinningLines.get(0).setStartY(WINDOW_HEIGHT/2);
 
+        timer = new AnimationTimer() {
+            @Override
+            public void handle(long now) {
 
+                for (int i = 1; i < spinningLines.size(); i++) {
+                    double prevEndX = spinningLines.get(i - 1).getEndX();
+                    double prevEndY = spinningLines.get(i - 1).getEndY();
 
+                    spinningLines.get(i).setStartX(prevEndX);
+                    spinningLines.get(i).setStartY(prevEndY);
+                }
+            }
+        };
 
+        timer.start();
 
 
         primaryStage.setTitle("Spinning lines!");
